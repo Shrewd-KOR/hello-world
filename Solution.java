@@ -67,7 +67,6 @@ public class Solution {
                             //Ledger 리스트에서 입금 토큰 제거
                             //ledgerList.remove(i);
                             // ======> 오류1) 제거 대신에 금액 0 만들기
-                            // ======> 오류2)
                             tempSet = Token[0]+" "+Token[1]+" "+Integer.toString(0);
                             ledgerList.set(i, tempSet);
 
@@ -96,7 +95,6 @@ public class Solution {
                             //Ledger 리스트에서 출금 토큰 제거하고
                             //ledgerList.remove(listIndex);
                             // ======> 오류1) 제거 대신에 금액 0 만들기
-                            // ======> 오류2)
                             tempSet = ledgerToken[0]+" "+ledgerToken[1]+" "+Integer.toString(0);
                             ledgerList.set(i, tempSet);
 
