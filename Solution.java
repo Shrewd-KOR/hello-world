@@ -67,6 +67,7 @@ public class Solution {
                             //Ledger 리스트에서 입금 토큰 제거
                             //ledgerList.remove(i);
                             // ======> 오류1) 제거 대신에 금액 0 만들기
+                            // ======> 오류2)
                             tempSet = Token[0]+" "+Token[1]+" "+Integer.toString(0);
                             ledgerList.set(i, tempSet);
 
@@ -89,14 +90,15 @@ public class Solution {
                             //ledgerList.set(i, Integer.toString(Integer.parseInt(Token[2])-balance) );
                             // ======> 오류2)
                             tempSet = Token[0]+" "+Token[1]+" "+Integer.toString(Integer.parseInt(Token[2])-balance);
-                            ledgerList.set(listIndex, tempSet);
+                            ledgerList.set(i, tempSet);
 
                             // --------------------------
                             //Ledger 리스트에서 출금 토큰 제거하고
                             //ledgerList.remove(listIndex);
                             // ======> 오류1) 제거 대신에 금액 0 만들기
+                            // ======> 오류2)
                             tempSet = ledgerToken[0]+" "+ledgerToken[1]+" "+Integer.toString(0);
-                            ledgerList.set(i, tempSet);
+                            ledgerList.set(listIndex, tempSet);
 
                             // 정산 완료
                             balance = 0;
@@ -116,14 +118,14 @@ public class Solution {
 
         //12월31일에 정산
         listIndex = ledgerList.size()-1;
-        System.out.println("ledgerList.size() :"+ledgerList.size());
+        //System.out.println("ledgerList.size() :"+ledgerList.size());
         while(listIndex >= 0)
         {
             // 공백으로 토큰 나누고
             String[] ledgerToken = ledgerList.get(listIndex).split("\\s");  // 입금 토큰
 
 
-            System.out.println("Integer.parseInt(ledgerToken[]) :"+ledgerToken[2]);
+            //System.out.println("Integer.parseInt(ledgerToken["+listIndex+"]) :"+ledgerToken[2]);
 
             if(Integer.parseInt(ledgerToken[2]) > 0 ) {
                 int balance = Math.abs(Integer.parseInt(ledgerToken[2]));  // 입금 금액중 정산할(남은) 금액
@@ -132,6 +134,7 @@ public class Solution {
 
                 // 날짜 계산
                 String dateIn = ledgerToken[0];
+                //System.out.println("dateIn : "+dateIn);
                 String dateOut = "12/31";
 
                 Date formatIn = null;
@@ -146,17 +149,17 @@ public class Solution {
                 long diffSec = (formatOut.getTime() - formatIn.getTime()) / 1000;
                 long diffDays = diffSec / (24 * 60 * 60);
 
-                System.out.println("diffDays : "+diffDays);
+                //System.out.println("diffDays : "+diffDays);
 
                 // 이자 계산(남은 잔액만큼)
                 int rate = 0;
                 double rateP = Double.parseDouble(ledgerToken[1]) / 100;
 
-                System.out.println("rateP :"+rateP);
+                //System.out.println("rateP :"+rateP);
                 System.out.println("12/31 이자: "+Math.floor((balance * rateP) * (diffDays / 365.0)));
 
                 answer += Math.floor((balance * rateP) * (diffDays / 365.0));
-                System.out.println("현재 이자: "+answer);
+                //System.out.println("현재 이자: "+answer);
             }
             listIndex--;
         }
